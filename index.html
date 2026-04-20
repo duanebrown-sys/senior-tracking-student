@@ -1,0 +1,506 @@
+
+<h2 class="sr-only">Rise Academy Senior Post-Secondary Action Guide — step-by-step instructions for each checklist area by track</h2>
+
+<style>
+:root {
+  --ra-purple: #4E008E;
+  --ra-yellow: #EDE939;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.header {
+  background: var(--ra-purple);
+  color: #fff;
+  padding: 1.25rem 1.5rem 1rem;
+  border-radius: var(--border-radius-lg);
+  margin-bottom: 1.25rem;
+}
+.header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem; }
+.logo-pill {
+  background: var(--ra-yellow); color: var(--ra-purple);
+  font-size: 11px; font-weight: 500; padding: 3px 10px;
+  border-radius: 20px; letter-spacing: 0.04em;
+}
+.header h1 { font-size: 18px; font-weight: 500; color: #fff; }
+.header p { font-size: 13px; color: rgba(255,255,255,0.72); margin-top: 4px; }
+
+.track-toggle { display: flex; gap: 8px; margin-bottom: 1.25rem; }
+.track-btn {
+  flex: 1; padding: 10px;
+  border-radius: var(--border-radius-md);
+  border: 1.5px solid var(--color-border-secondary);
+  background: var(--color-background-primary);
+  color: var(--color-text-secondary);
+  font-size: 14px; font-weight: 500; cursor: pointer; text-align: center;
+}
+.track-btn.active-college { background: var(--ra-purple); color: #fff; border-color: var(--ra-purple); }
+.track-btn.active-workforce { background: #27500A; color: #C0DD97; border-color: #27500A; }
+.track-btn:not(.active-college):not(.active-workforce):hover { background: var(--color-background-secondary); }
+
+.cap-hero {
+  border-radius: var(--border-radius-lg);
+  border: 0.5px solid var(--color-border-tertiary);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.cap-hero-top {
+  background: #27500A;
+  padding: 14px 16px 12px;
+}
+.cap-program-label {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.08em;
+  color: #9FE1CB; text-transform: uppercase; margin-bottom: 4px;
+}
+.cap-title { font-size: 17px; font-weight: 500; color: #EAF3DE; }
+.cap-subtitle { font-size: 13px; color: #5DCAA5; margin-top: 2px; }
+.cap-liaison {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--color-background-secondary);
+  padding: 10px 16px;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+}
+.avatar {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: #9FE1CB; color: #085041;
+  font-size: 11px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.liaison-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.liaison-role { font-size: 12px; color: var(--color-text-secondary); }
+.cap-perks {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+}
+.perk {
+  padding: 10px 12px; text-align: center;
+  border-right: 0.5px solid var(--color-border-tertiary);
+}
+.perk:last-child { border-right: none; }
+.perk-val { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+.perk-label { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+
+.section-card {
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  background: var(--color-background-primary);
+  margin-bottom: 10px; overflow: hidden;
+}
+.section-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px; cursor: pointer; user-select: none;
+}
+.section-header:hover { background: var(--color-background-secondary); }
+.section-icon {
+  width: 32px; height: 32px; border-radius: var(--border-radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.section-label { flex: 1; }
+.section-label .title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+.section-label .subtitle { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+.badge { font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 500; }
+.badge-urgent { background: #FCEBEB; color: #A32D2D; }
+.badge-medium { background: #FAEEDA; color: #854F0B; }
+.badge-ok { background: #EAF3DE; color: #3B6D11; }
+.badge-green { background: #EAF3DE; color: #3B6D11; }
+.chevron {
+  width: 16px; height: 16px; color: var(--color-text-tertiary);
+  transition: transform 0.2s; flex-shrink: 0;
+}
+.chevron.open { transform: rotate(90deg); }
+
+.section-body {
+  display: none; padding: 0 16px 16px;
+  border-top: 0.5px solid var(--color-border-tertiary);
+}
+.section-body.open { display: block; }
+
+.why-it-matters {
+  font-size: 13px; color: var(--color-text-secondary);
+  padding: 10px 12px;
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-md);
+  margin: 12px 0 14px; line-height: 1.6;
+}
+
+.steps { list-style: none; }
+.step { display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start; }
+.step-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--ra-purple); color: #fff;
+  font-size: 11px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.step-num.wf { background: #3B6D11; }
+.step-content { flex: 1; }
+.step-content .action { font-size: 14px; font-weight: 500; color: var(--color-text-primary); line-height: 1.4; }
+.step-content .detail { font-size: 13px; color: var(--color-text-secondary); margin-top: 3px; line-height: 1.5; }
+.step-content .tip {
+  font-size: 12px; color: var(--color-text-secondary);
+  margin-top: 4px; padding: 5px 8px;
+  border-left: 2px solid var(--ra-yellow);
+  background: var(--color-background-secondary);
+  border-radius: 0 4px 4px 0;
+}
+
+.alert-box { border-radius: var(--border-radius-md); padding: 10px 12px; margin: 12px 0; font-size: 13px; line-height: 1.5; }
+.alert-red { background: #FCEBEB; color: #791F1F; border-left: 3px solid #E24B4A; }
+.alert-amber { background: #FAEEDA; color: #633806; border-left: 3px solid #EF9F27; }
+.alert-green { background: #EAF3DE; color: #27500A; border-left: 3px solid #3B6D11; }
+
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.contact-card {
+  background: var(--color-background-secondary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md);
+  padding: 10px 12px;
+}
+.contact-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.contact-line { font-size: 12px; color: var(--color-text-secondary); margin-top: 3px; }
+.contact-line a { color: #3B6D11; text-decoration: none; }
+
+.pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.pill {
+  font-size: 12px; padding: 4px 10px;
+  background: var(--color-background-secondary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: 20px; color: var(--color-text-secondary);
+}
+
+.enroll-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin: 12px 0; }
+.enroll-step {
+  background: var(--color-background-secondary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md);
+  padding: 10px 12px; text-align: center;
+}
+.enroll-num {
+  width: 24px; height: 24px; border-radius: 50%; background: #3B6D11; color: #C0DD97;
+  font-size: 12px; font-weight: 500; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px;
+}
+.enroll-label { font-size: 12px; font-weight: 500; color: var(--color-text-primary); line-height: 1.3; }
+.enroll-sub { font-size: 11px; color: var(--color-text-secondary); margin-top: 3px; line-height: 1.4; }
+</style>
+
+<div class="header">
+  <div class="header-top">
+    <span class="logo-pill">Rise Academy RVA</span>
+  </div>
+  <h1>Your Post-Secondary Action Guide</h1>
+  <p>Class of 2026 — step-by-step instructions for every checklist item</p>
+</div>
+
+<div class="track-toggle">
+  <button class="track-btn active-college" id="btn-college" onclick="setTrack('college')">College Track</button>
+  <button class="track-btn" id="btn-workforce" onclick="setTrack('workforce')">Workforce Track</button>
+</div>
+
+<div id="college-sections">
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:#EEEDFE;">💰</div>
+      <div class="section-label">
+        <div class="title">Financial Aid</div>
+        <div class="subtitle">FAFSA, award letters, and loan decisions</div>
+      </div>
+      <span class="badge badge-urgent">Deadline: May 30</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="why-it-matters">This is the most critical step. Without completing financial aid, you may not be able to afford to enroll — even if you've been accepted. BJ: your deadline is May 30. Do not skip this.</div>
+      <ul class="steps">
+        <li class="step"><div class="step-num">1</div><div class="step-content"><div class="action">Log into studentaid.gov</div><div class="detail">Sign in with your FSA ID. If you forgot it, click "Forgot Username/Password" and reset using your email or phone.</div></div></li>
+        <li class="step"><div class="step-num">2</div><div class="step-content"><div class="action">Check your FAFSA was processed</div><div class="detail">Under "My FAFSA," confirm the status says "Processed Successfully." Anything else — bring your laptop to your advisor immediately.</div></div></li>
+        <li class="step"><div class="step-num">3</div><div class="step-content"><div class="action">Find your financial aid award letter</div><div class="detail">Log into your college's student portal. Look for a tab called "Financial Aid," "My Aid," or "Award Letter."</div><div class="tip">Tip: Google "[your school name] student financial aid portal" if you're unsure where to find it.</div></div></li>
+        <li class="step"><div class="step-num">4</div><div class="step-content"><div class="action">Accept your aid offer</div><div class="detail">Grants = free money, accept these. Work-study = optional on-campus job. Loans = money you repay, only accept what you need.</div></div></li>
+        <li class="step"><div class="step-num">5</div><div class="step-content"><div class="action">Complete loan entrance counseling if required</div><div class="detail">If you accepted federal loans, most schools require a short online counseling session and a Master Promissory Note. Your portal will show if these are due.</div></div></li>
+        <li class="step"><div class="step-num">6</div><div class="step-content"><div class="action">Screenshot your completed award page</div><div class="detail">Show this to your advisor so your checklist can be marked complete.</div></div></li>
+      </ul>
+      <div class="alert-box alert-red">BJ — your financial aid deadline is May 30. That is 45 days away. Schedule time with your advisor this week to go through steps 1–5 together.</div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:#EAF3DE;">📄</div>
+      <div class="section-label">
+        <div class="title">Admissions</div>
+        <div class="subtitle">Official acceptance and enrollment confirmation</div>
+      </div>
+      <span class="badge badge-ok">Most complete</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="why-it-matters">This confirms your seat is officially held. You need documentation to show it's done.</div>
+      <ul class="steps">
+        <li class="step"><div class="step-num">1</div><div class="step-content"><div class="action">Find your official acceptance letter</div><div class="detail">Log into the admissions portal (Common App or school-specific). Download or screenshot your acceptance letter.</div></div></li>
+        <li class="step"><div class="step-num">2</div><div class="step-content"><div class="action">Confirm your intent to enroll</div><div class="detail">Most schools have a "Confirm Enrollment" button in your admissions portal. This is separate from paying the deposit.</div></div></li>
+        <li class="step"><div class="step-num">3</div><div class="step-content"><div class="action">Set up your school email</div><div class="detail">Your college will send instructions. Do this now — all deadlines and account access go to that address from here on.</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:#EEEDFE;">💳</div>
+      <div class="section-label">
+        <div class="title">Enrollment Deposit</div>
+        <div class="subtitle">Paying to secure your spot</div>
+      </div>
+      <span class="badge badge-ok">Most complete</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="why-it-matters">The enrollment deposit (usually $100–$500) locks in your spot. If you don't pay it, the school can give your seat away.</div>
+      <ul class="steps">
+        <li class="step"><div class="step-num">1</div><div class="step-content"><div class="action">Find the deposit payment page</div><div class="detail">Usually in your admissions portal. Look for "Enrollment Deposit," "Confirm Enrollment," or "Pay Deposit."</div></div></li>
+        <li class="step"><div class="step-num">2</div><div class="step-content"><div class="action">Pay using a debit card, credit card, or e-check</div><div class="detail">If you don't have a card, ask a parent, guardian, or trusted adult to help. Some schools have payment plans for the deposit — call admissions and ask.</div><div class="tip">Tip: Some schools will waive the deposit for hardship. Call admissions and ask directly — the worst they say is no.</div></div></li>
+        <li class="step"><div class="step-num">3</div><div class="step-content"><div class="action">Save your confirmation receipt</div><div class="detail">Screenshot or print it and bring it to your advisor. This is your proof the deposit is done.</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:#E1F5EE;">🏠</div>
+      <div class="section-label">
+        <div class="title">Logistics</div>
+        <div class="subtitle">Housing, transportation, and move-in planning</div>
+      </div>
+      <span class="badge badge-medium">JayKyra: May 1</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="why-it-matters">Where you sleep, how you get there, and what you eat on day one — these need to be locked in before school starts, not the week of.</div>
+      <ul class="steps">
+        <li class="step"><div class="step-num">1</div><div class="step-content"><div class="action">Submit your housing application (if living on campus)</div><div class="detail">Log into the student housing portal. Apply for a room and select your preferences (roommate, room type, dining plan).</div><div class="tip">JayKyra: Dorms open May 1. Confirm your housing deposit is submitted before that date.</div></div></li>
+        <li class="step"><div class="step-num">2</div><div class="step-content"><div class="action">Confirm your move-in date and time</div><div class="detail">Schools assign specific move-in windows. Check your email and housing portal for yours. Add it to your calendar.</div></div></li>
+        <li class="step"><div class="step-num">3</div><div class="step-content"><div class="action">Plan transportation to campus</div><div class="detail">Figure out how you're getting there and the cost. Options: family car, bus/Greyhound, Amtrak. Budget for return trips during breaks.</div></div></li>
+        <li class="step"><div class="step-num">4</div><div class="step-content"><div class="action">If living at home — confirm your commute plan</div><div class="detail">Map your daily route. Know your bus lines, drive time, or carpool options — and how early you need to leave for 8am classes.</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:#FAEEDA;">🎒</div>
+      <div class="section-label">
+        <div class="title">Personal Supplies</div>
+        <div class="subtitle">Laptop, bedding, and day-one essentials</div>
+      </div>
+      <span class="badge badge-medium">5 students incomplete</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="why-it-matters">You don't need everything on day one — but you need the basics. A laptop is non-negotiable for most college programs. If cost is a barrier, there are options.</div>
+      <ul class="steps">
+        <li class="step"><div class="step-num">1</div><div class="step-content"><div class="action">Confirm whether your school provides a laptop</div><div class="detail">Some schools include a laptop or tech fee in tuition. Check your financial aid letter or your school's IT page.</div></div></li>
+        <li class="step"><div class="step-num">2</div><div class="step-content"><div class="action">If you need a laptop — flag it to your advisor now</div><div class="detail">Rise Academy may have emergency funds or partner connections. Don't wait until August to say something.</div></div></li>
+        <li class="step"><div class="step-num">3</div><div class="step-content"><div class="action">Build a short list of what you need for move-in</div><div class="detail">Dorms: sheets (Twin XL), towels, toiletries, power strip, hangers. Commuters: backpack, folders, charger, student ID.</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:#EEEDFE;">🔗</div>
+      <div class="section-label">
+        <div class="title">Alumni Tracking Form</div>
+        <div class="subtitle">Stay connected with Rise Academy after graduation</div>
+      </div>
+      <span class="badge badge-medium">Zero completed</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="why-it-matters">This form helps Rise Academy support you even after graduation — scholarships, emergency resources, and mentorship connections often come through alumni networks.</div>
+      <ul class="steps">
+        <li class="step"><div class="step-num">1</div><div class="step-content"><div class="action">Fill out the Alumni Tracking Form before graduation</div><div class="detail">Your advisor will share the link. It takes about 5 minutes: your school, contact info, and permission to stay in touch.</div></div></li>
+        <li class="step"><div class="step-num">2</div><div class="step-content"><div class="action">Use a personal email address, not a school one</div><div class="detail">Your school email will be deactivated after graduation. Leave Rise a Gmail, Yahoo, or other permanent address.</div></div></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="workforce-sections" style="display:none;">
+
+  <div class="cap-hero">
+    <div class="cap-hero-top">
+      <div class="cap-program-label">Your next step</div>
+      <div class="cap-title">Career Advantage Program</div>
+      <div class="cap-subtitle">VCW Capital — Richmond, VA</div>
+    </div>
+    <div class="cap-liaison">
+      <div class="avatar">AF</div>
+      <div>
+        <div class="liaison-name">Aniyah Fleming</div>
+        <div class="liaison-role">Community Liaison · 804-385-4397 · afleming@rossworks.com</div>
+      </div>
+    </div>
+    <div class="cap-perks">
+      <div class="perk"><div class="perk-val">$18/hr</div><div class="perk-label">Work Experience pay</div></div>
+      <div class="perk"><div class="perk-val">Up to $400</div><div class="perk-label">Incentives available</div></div>
+      <div class="perk"><div class="perk-val">1 year</div><div class="perk-label">Follow-up support</div></div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:#EAF3DE;">📝</div>
+      <div class="section-label">
+        <div class="title">Step 1 — Apply online</div>
+        <div class="subtitle">Fill out the application at vcwcapital.myoneflow.com</div>
+      </div>
+      <span class="badge badge-urgent">Do this first</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="why-it-matters">The application is your entry point into the whole program. It takes a few minutes and opens the door to paid work experience, free training, and financial support.</div>
+      <ul class="steps">
+        <li class="step"><div class="step-num wf">1</div><div class="step-content"><div class="action">Go to vcwcapital.myoneflow.com</div><div class="detail">Open this link on your phone or computer. You'll find the Career Advantage Program application here.</div></div></li>
+        <li class="step"><div class="step-num wf">2</div><div class="step-content"><div class="action">Fill out all required fields honestly</div><div class="detail">The program serves youth ages 18–24 who are out of school. You may qualify based on income, parenting status, housing, or other circumstances. Answer every question — it helps the team place you in the right path.</div></div></li>
+        <li class="step"><div class="step-num wf">3</div><div class="step-content"><div class="action">Submit the application and note your confirmation</div><div class="detail">Screenshot or write down any confirmation number. Then contact Aniyah Fleming to let her know you applied so she can follow up with the intake team.</div></div></li>
+      </ul>
+      <div class="alert-box alert-green">Text or email Aniyah after you apply: 804-385-4397 · afleming@rossworks.com — tell her you're a Rise Academy senior and just submitted your application.</div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:#EAF3DE;">📋</div>
+      <div class="section-label">
+        <div class="title">Step 2 — Intake & assessment</div>
+        <div class="subtitle">Documents, CASAS test, and program fit review</div>
+      </div>
+      <span class="badge badge-medium">After application</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="why-it-matters">An Intake Coordinator will contact you to collect your documents and schedule your CASAS assessment. This is how they figure out which program path fits you best.</div>
+      <ul class="steps">
+        <li class="step"><div class="step-num wf">1</div><div class="step-content"><div class="action">Gather your documents ahead of time</div><div class="detail">Have ready: a photo ID (driver's license or state ID), your Social Security card, and proof of income or household status if requested. Having these ready speeds up the process.</div></div></li>
+        <li class="step"><div class="step-num wf">2</div><div class="step-content"><div class="action">Schedule and complete your CASAS assessment</div><div class="detail">CASAS is a basic skills test (reading and math). It's not a pass/fail — it helps the program understand where you are and what support you need. You cannot fail this test.</div><div class="tip">Tip: It's okay if you feel nervous. The CASAS is used to help you, not judge you. Just do your best.</div></div></li>
+        <li class="step"><div class="step-num wf">3</div><div class="step-content"><div class="action">Meet with the Intake Coordinator for your fit review</div><div class="detail">They'll look at your application, documents, and CASAS score to confirm you're a good match for the program and discuss which path makes sense for you.</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:#EAF3DE;">✅</div>
+      <div class="section-label">
+        <div class="title">Step 3 — Director approval & enrollment</div>
+        <div class="subtitle">Final review and official program start</div>
+      </div>
+      <span class="badge badge-medium">Final step</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="why-it-matters">Once the Director approves your enrollment, you're in — and the benefits start. This includes paid work experience, free training, and supportive services.</div>
+      <ul class="steps">
+        <li class="step"><div class="step-num wf">1</div><div class="step-content"><div class="action">Wait for director approval notification</div><div class="detail">The Intake Coordinator submits your file to the Director for final approval. You'll be notified by phone or email — make sure you're checking both.</div></div></li>
+        <li class="step"><div class="step-num wf">2</div><div class="step-content"><div class="action">Choose your program path</div><div class="detail">Once enrolled, you'll select your track. Options include GED completion, Occupational Skills Training, or Work Experience ($18/hr). You may be able to combine paths.</div></div></li>
+        <li class="step"><div class="step-num wf">3</div><div class="step-content"><div class="action">Show up to your first session</div><div class="detail">Training is available in person or virtual. Your coordinator will send you the schedule. Showing up consistently is what earns your incentives and opens doors to employment.</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:#EAF3DE;">🎁</div>
+      <div class="section-label">
+        <div class="title">What you get from the program</div>
+        <div class="subtitle">Training, pay, support, and incentives</div>
+      </div>
+      <span class="badge badge-green">Know your benefits</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="why-it-matters">This program gives you real money, real skills, and real support. Know what you're entitled to so you can take full advantage.</div>
+      <ul class="steps">
+        <li class="step"><div class="step-num wf">1</div><div class="step-content"><div class="action">Work Experience — $18/hour</div><div class="detail">Hours vary per participant. This is paid, hands-on work experience that also counts toward your resume.</div></div></li>
+        <li class="step"><div class="step-num wf">2</div><div class="step-content"><div class="action">Free career and soft skills training</div><div class="detail">Available in person or on-demand/virtual. Covers resume writing, interviewing, financial literacy, time management, professionalism, and more.</div></div></li>
+        <li class="step"><div class="step-num wf">3</div><div class="step-content"><div class="action">Supportive services while you're enrolled</div><div class="detail">Financial help is available for: work-related items, transportation, car insurance/repair, childcare, emergency housing, medical costs, and education/certification fees.</div><div class="tip">Tip: Don't wait until you're in crisis to ask. Tell your coordinator early if you have a transportation or housing need — that's what this is for.</div></div></li>
+        <li class="step"><div class="step-num wf">4</div><div class="step-content"><div class="action">Earn up to $400 in incentives</div><div class="detail">Incentives are paid out when you hit milestones: getting your GED, earning a certificate, getting hired, keeping a job, gaining new skills, entering post-secondary education, or completing entrepreneurial training.</div></div></li>
+        <li class="step"><div class="step-num wf">5</div><div class="step-content"><div class="action">Job search help and 1-year follow-up</div><div class="detail">After you finish your track, Career Coaches help polish your resume and connect you with job leads. They'll check in for a full year after you get hired.</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:#EAF3DE;">📞</div>
+      <div class="section-label">
+        <div class="title">Who to contact</div>
+        <div class="subtitle">Reach out to start your enrollment</div>
+      </div>
+      <span class="badge badge-green">Reach out today</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="why-it-matters">Both contacts are there to help you get in. Reach out to Aniyah first — she's the Community Liaison and your main point of contact from Rise Academy.</div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-name">Aniyah Fleming</div>
+          <div class="contact-line">Community Liaison</div>
+          <div class="contact-line"><a href="tel:8043854397">804-385-4397</a></div>
+          <div class="contact-line"><a href="mailto:afleming@rossworks.com">afleming@rossworks.com</a></div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-name">Lizzie Hays</div>
+          <div class="contact-line">Program Contact</div>
+          <div class="contact-line"><a href="tel:8043858007">804-385-8007</a></div>
+          <div class="contact-line"><a href="mailto:ehays@rossworks.com">ehays@rossworks.com</a></div>
+        </div>
+      </div>
+      <div class="alert-box alert-green" style="margin-top:12px;">Apply at vcwcapital.myoneflow.com — then text Aniyah so she knows to look for your name.</div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon" style="background:#EAF3DE;">🔗</div>
+      <div class="section-label">
+        <div class="title">Alumni Tracking Form</div>
+        <div class="subtitle">Stay connected with Rise Academy</div>
+      </div>
+      <span class="badge badge-medium">Before graduation</span>
+      <svg class="chevron" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="section-body">
+      <div class="why-it-matters">Rise Academy will be a resource for you even after you graduate — for certifications, job changes, and references. Staying connected starts with this form.</div>
+      <ul class="steps">
+        <li class="step"><div class="step-num wf">1</div><div class="step-content"><div class="action">Fill out the Alumni Tracking Form before graduation</div><div class="detail">Your advisor will share the link. Takes about 5 minutes — your employer/program name, start date, and contact info.</div></div></li>
+        <li class="step"><div class="step-num wf">2</div><div class="step-content"><div class="action">Use a personal email, not a school one</div><div class="detail">Your school email will stop working after graduation. Leave Rise a Gmail or Yahoo address so they can reach you long-term.</div></div></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggle(header) {
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('.chevron');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chevron.classList.toggle('open', !isOpen);
+}
+function setTrack(track) {
+  const college = document.getElementById('college-sections');
+  const workforce = document.getElementById('workforce-sections');
+  const btnC = document.getElementById('btn-college');
+  const btnW = document.getElementById('btn-workforce');
+  if (track === 'college') {
+    college.style.display = 'block';
+    workforce.style.display = 'none';
+    btnC.className = 'track-btn active-college';
+    btnW.className = 'track-btn';
+  } else {
+    college.style.display = 'none';
+    workforce.style.display = 'block';
+    btnC.className = 'track-btn';
+    btnW.className = 'track-btn active-workforce';
+  }
+}
+</script>
